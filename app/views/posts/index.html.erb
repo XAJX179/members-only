@@ -1,2 +1,29 @@
-<h1>Posts#index</h1>
-<p>Find me in app/views/posts/index.html.erb</p>
+<% if !current_user %>
+  Sign up / Log in to view names or create posts
+<% end %>
+<% if current_user %>
+  <%= link_to "New post", new_post_path %>
+<% end %>
+<% @posts.order(created_at: :desc).each do |p| %>
+  <div class="post">
+    <div class="author">
+      <% if current_user %>
+        <%= User.find(p.user_id).username %>
+      <% else %>
+        <p>Anonymous user</p>
+      <% end %>
+    </div>
+    <div class="title">
+      <%= p.title %>
+    </div>
+    <div class="body">
+      <%= p.body %>
+    </div>
+    <div>
+      <% if current_user && current_user.id == p.user_id %>
+        <%= link_to "Delete", post_path(p), data: { turbo_method: :delete } %>
+      <% end %>
+    </div>
+  </div>
+  <br>
+<% end %>
