@@ -23,11 +23,22 @@
   </head>
 
   <body>
+    <% if flash %>
+      <div>
+        <%= pp flash[:notice] %>
+      </div>
+    <% end %>
     <% if current_user %>
       <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete } %>
     <% else %>
       <%= link_to "Sign Up", new_user_registration_path %>
       <%= link_to "Log In", new_user_session_path %>
+    <% end %>
+
+    <% if flash %>
+      <div>
+        <%= pp flash[:alert] %>
+      </div>
     <% end %>
     <%= yield %>
   </body>
