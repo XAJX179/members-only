@@ -3,6 +3,10 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.relative_url_root = "/members-only"
+  config.assets.prefix = "/members-only/assets"
+  config.public_file_server.enabled = true
+
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
